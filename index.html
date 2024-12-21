@@ -7,18 +7,48 @@
     <title>Etch-a-Sketch</title>
 </head>
 <body>
-    <div id="container">
-
-    </div>
+    <button id="newgrid">Set a new grid</button>
+    <div id="container"></div>
 
     <script>
         const container = document.querySelector('#container');
+        const button = document.querySelector('#newgrid');
 
-        for(let i = 0; i < 256; i++) {
-            let block = document.createElement("div");
-            block.className = "block";
-            container.appendChild(block);
+        function newgrid() {
+            const size = parseInt(prompt("Podaj rozmiar boku nowego grida."));
+            
+            const currentDivs = container.querySelectorAll('.block');
+            currentDivs.forEach(div => div.remove());
+            
+            drawgrid(size);
         }
+
+        function drawgrid(size = 16) {
+            const totalblocks = size * size;
+            for(let i = 0; i < totalblocks; i++) {
+                let block = document.createElement("div");
+                block.className = "block";
+                container.appendChild(block);
+            }
+        }
+
+        drawgrid();
+        
+        const divs = document.querySelectorAll('div .block');
+        let timeoutId;
+
+        divs.forEach(div => div.addEventListener('mouseenter', () => {
+            div.classList.add("hov");
+        }));
+
+        divs.forEach(div => div.addEventListener('mouseleave', () => {
+            timeoutId = setTimeout(() => {
+                div.classList.remove("hov");
+            }, 500);
+        }));
+
+        button.addEventListener('click', newgrid);
+
     </script>
 </body>
 </html>
