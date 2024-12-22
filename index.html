@@ -39,13 +39,17 @@
             const divs = document.querySelectorAll('div .block');
             divs.forEach(div => div.addEventListener('mouseenter', () => {
                 div.classList.add("hov");
+                const r = Math.floor(Math.random() * 255);
+                const g = Math.floor(Math.random() * 255);
+                const b = Math.floor(Math.random() * 255);
+                div.style.backgroundColor = `rgb(${r},${g},${b})`;
             }));
 
-            divs.forEach(div => div.addEventListener('mouseleave', () => {
-                timeoutId = setTimeout(() => {
-                    div.classList.remove("hov");
-                }, 500);
-            }));
+            // divs.forEach(div => div.addEventListener('mouseleave', () => {
+            //     timeoutId = setTimeout(() => {
+            //         div.classList.remove("hov");
+            //     }, 500);
+            // }));
         }
 
         drawgrid();
