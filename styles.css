@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     
 }
 
@@ -13,7 +13,8 @@
     --block_size: calc(var(--cont_base) / 16);
     **/
     --cont_size: 700px;
-    --block_size: calc(var(--cont_size) / 16);
+    --block_number: 16;
+    --block_size: calc(var(--cont_size) / var(--block_number));
 
 
 }
@@ -35,6 +36,7 @@ body {
     width: var(--cont_size);
     flex-shrink: 0;
     /* gap: var(--gap_size); */
+    border: 2px solid red;
 
 }
 
@@ -58,5 +60,6 @@ body {
     background-color: blue;
     color: white;
     border-radius: 5px;
+    border-color: blue;
 
 }

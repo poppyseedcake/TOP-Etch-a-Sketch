@@ -13,13 +13,19 @@
     <script>
         const container = document.querySelector('#container');
         const button = document.querySelector('#newgrid');
+        let timeoutId; 
 
         function newgrid() {
-            const size = parseInt(prompt("Podaj rozmiar boku nowego grida."));
+            let size = 0;
+            do  {
+                if (size > 100) alert("rozmiar ma być mniejszy niż 100!");
+                size = parseInt(prompt("Podaj rozmiar boku nowego grida."));
+            } while (size > 100);
             
             const currentDivs = container.querySelectorAll('.block');
             currentDivs.forEach(div => div.remove());
             
+            document.documentElement.style.setProperty('--block_number', size);
             drawgrid(size);
         }
 
@@ -30,22 +36,19 @@
                 block.className = "block";
                 container.appendChild(block);
             }
+            const divs = document.querySelectorAll('div .block');
+            divs.forEach(div => div.addEventListener('mouseenter', () => {
+                div.classList.add("hov");
+            }));
+
+            divs.forEach(div => div.addEventListener('mouseleave', () => {
+                timeoutId = setTimeout(() => {
+                    div.classList.remove("hov");
+                }, 500);
+            }));
         }
 
         drawgrid();
-        
-        const divs = document.querySelectorAll('div .block');
-        let timeoutId;
-
-        divs.forEach(div => div.addEventListener('mouseenter', () => {
-            div.classList.add("hov");
-        }));
-
-        divs.forEach(div => div.addEventListener('mouseleave', () => {
-            timeoutId = setTimeout(() => {
-                div.classList.remove("hov");
-            }, 500);
-        }));
 
         button.addEventListener('click', newgrid);
 
